@@ -8,7 +8,7 @@ L'algorithme examine pour toutes ses pièces
 A partir ce cela, on détermine une liste de mouvements dont celui joué est celui jugé le plus important
 L'importance est déterminée par la nature de la pièce (reine, fou, pion...)
 
-Inconvéniants : Très long...
+Inconvéniant : Très long...
 
 ## Idée 2
 
@@ -19,7 +19,10 @@ Pour toutes les pièces n'étant pas un pion, on a la liste de priorités suivan
 
 Ainsi on divise par 2 (grossièrement) le nombre d'opérations
 
+## Concernant l'importance des mouvements
+
+- On pourra ajouter une constante liée à chauqe pièce, dans les calculs, pour signifier leur importance
+
 ## Concernant l'analyse des possibles mouvements adversaires
 
-On trouver différentes approches
-- On examine dans l'ordre ci-dessus (en excluant le roi) les possibles mouvements ennemis.
+- On examine dans l'ordre ci-dessus (en excluant le roi) les possibles mouvements ennemis puis on examine les pions à côté des pièces.

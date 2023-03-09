@@ -8,8 +8,6 @@ L'algorithme examine pour toutes ses pièces
 A partir ce cela, on détermine une liste de mouvements dont celui joué est celui jugé le plus important
 L'importance est déterminée par la nature de la pièce (reine, fou, pion...)
 
-Inconvéniant : Très long...
-
 ## Idée 2
 
 Pour toutes les pièces n'étant pas un pion, on a la liste de priorités suivante :
@@ -34,17 +32,40 @@ Une solution à cela serait un algorithme backtracking.
 
 ## Backtracking 
 
-On crée une structure de données contenant toutes les situation possibles pour que l'algorithme puisse l'exploiter pour jouer.
+On crée une structure (probablement arborescente) de données associant toutes les situation possibles à une valeur numérique pour que l'algorithme puisse l'exploiter pour jouer.
 On la crée indépendemment pour éviter de la recréer à chaque tour.
 
+> Algorithme naturel
 ```
 tabl_coups (plateau) :
   Si mat : 
     on associe au plateau la constante de victoire / défaite
   sinon :
-    on sélectionne une pièce blanche et noire
+    on sélectionne un couple de pièces blanche et noire pouvant bouger
       on sélectionne une case
         tabl_coups (plateau)
       on déselectionne la case
     on déselectionne le couple de pièces choisies
 ```
+> Algorithme plus détaillé
+```    
+// On crée au préalable une structure stockant les différentes situations et leur constante associée
+tabl_coups (père_plateau) : 
+  Si le roi ne peut pas bouger : 
+      Si le roi est en échec : 
+          ajoute à la structure le plateau associé à la constante de victoire/défaite selon la couleur de l'algo
+      Sinon :
+          ajoute à la structure le plateau associé à la constante de match nul
+   Sinon :
+      on associe à père_plateau sa constante associée
+      pièces <- [*pièces pouvant bouger*]
+      couples <- [*tous les couples possibles entre pièces (pouvant bouger) noires et blanches*]
+      Pour tous les couples faire
+          mouvements <- [*tous les mouvements possibles des pièces du couple*]
+          pour tous les mouvements faire
+              fils_plateau <- père_plateau avec les nouveaux mouvements
+              tabl_coups (fils_plateau)
+          
+```
+
+Ainsi on élaborera aussi des algoritmes permettant de déterminer les pièces pouvant bouger et les mouvements possbles dans le cas échéant (ceci sera fait )

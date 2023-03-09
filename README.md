@@ -28,3 +28,5 @@
 - Remarque : cela ajoute une autre condition nécessaire à la terminaison, les joueurs ne peuvent pas ne faire aucun coup à chaque tour, ainsi il y aura un nombre limité de tours passés consécutifs fixé pour l'implémentation
 
 - Remarque : Durant toute la phase de recherche de propriétés, ces deux conditions ci dessus seront supposées remplies
+
+> Pour simplifier, les éventuelles collisions entre pièces ennemies (soit lorsque deux pièces de déplacent vers la même case) lors d'un même tour résultera en un retour aux cases initiales

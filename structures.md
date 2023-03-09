@@ -20,7 +20,8 @@ Ainsi une case sur laquelle est situé un fou noir sera de la forme
 ```
 ('f', 'n')
 ```
-> Remarque : pour les cases vides, on mettra par convention '' en second caractère
+> Remarque : pour les cases vides, on mettra par convention ' ' en second caractère
+
 Ainsi par exemple, si est choisie une implémentation en OCaml avec une matrice, on aura pour le plateau de début de partie
 ```
 p0 ->
@@ -33,6 +34,9 @@ A ce plateau sera associé une constante. Ce couple sera ce qui sera ajouté à 
 Un Noeud sera constitué du couple mentionné ci dessus et des fils.
 Les fils seront considérés comme une liste (ou si possible une table de hachage) de Noeuds
 
-
-
-Ainsi en garnant l'exemple précédent, on notera la racine de l'arbre de la mainère suivante
+Ainsi en gardant l'exemple précédent, on aura
+```
+type arb = Vide | Noeud of (char*char Array)*int, arb list;;
+let exemple = Noeud((p0, 0), [Vide]);;
+```
+> On associe par convention 0 au plateau p0

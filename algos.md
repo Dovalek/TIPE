@@ -67,7 +67,7 @@ tabl_coups (père_plateau) :
       Pour tous les couples faire :
           mouvements <- [*tous les mouvements possibles des pièces du couple*]
           Pour tous les mouvements faire :
-              fils_plateau <- père_plateau avec les nouveaux mouvements // il s'agint donc d'un des nombreux fils
+              fils_plateau <- père_plateau avec les nouveaux mouvements // il s'agit donc d'un des nombreux fils
               tabl_coups (fils_plateau)
 ```
 Ainsi on élaborera aussi des algoritmes permettant de déterminer les pièces pouvant bouger et les mouvements possbles dans le cas échéant

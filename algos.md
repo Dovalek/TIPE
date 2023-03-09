@@ -58,11 +58,15 @@ tabl_coups (père_plateau) :
           ajoute à la structure le plateau associé à la constante de match nul
    Sinon :
       on associe à père_plateau sa constante associée
-      pièces <- [*pièces pouvant bouger*]
-      couples <- [*tous les couples possibles entre pièces (pouvant bouger) noires et blanches*]
-      Pour tous les couples faire
+      Si le roi est en échec :
+          pièces <- [*pièces alliées pouvant annuler l'état d'échec et pièces ennenies pouvant bouger*]
+          couples <- [*tous les couples possibles entre pièces noires et blanches*]
+      Sinon :
+          pièces <- [*pièces pouvant bouger*]
+          couples <- [*tous les couples possibles entre pièces noires et blanches*]
+      Pour tous les couples faire :
           mouvements <- [*tous les mouvements possibles des pièces du couple*]
-          pour tous les mouvements faire
+          pour tous les mouvements faire :
               fils_plateau <- père_plateau avec les nouveaux mouvements // il s'agint donc d'un des nombreux fils
               tabl_coups (fils_plateau)
 ```

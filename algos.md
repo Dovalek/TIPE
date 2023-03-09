@@ -26,3 +26,25 @@ Ainsi on divise par 2 (grossièrement) le nombre d'opérations
 ## Concernant l'analyse des possibles mouvements adversaires
 
 - On examine dans l'ordre ci-dessus (en excluant le roi) les possibles mouvements ennemis puis on examine les pions à côté des pièces.
+
+## Inconvéniants
+
+Ces algorithmes donnent une réponse court terme à une situatation.
+Une solution à cela serait un algorithme backtracking.
+
+## Backtracking 
+
+On crée une structure de données contenant toutes les situation possibles pour que l'algorithme puisse l'exploiter pour jouer.
+On la crée indépendemment pour éviter de la recréer à chaque tour.
+
+```
+tabl_coups (plateau) :
+  Si mat : 
+    on associe au plateau la constante de victoire / défaite
+  sinon :
+    on sélectionne une pièce blanche et noire
+      on sélectionne une case
+        tabl_coups (plateau)
+      on déselectionne la case
+    on déselectionne le couple de pièces choisies
+```

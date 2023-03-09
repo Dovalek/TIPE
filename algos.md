@@ -63,9 +63,9 @@ tabl_coups (père_plateau) :
       Pour tous les couples faire
           mouvements <- [*tous les mouvements possibles des pièces du couple*]
           pour tous les mouvements faire
-              fils_plateau <- père_plateau avec les nouveaux mouvements
+              fils_plateau <- père_plateau avec les nouveaux mouvements // il s'agint donc d'un des nombreux fils
               tabl_coups (fils_plateau)
-          
 ```
+Ainsi on élaborera aussi des algoritmes permettant de déterminer les pièces pouvant bouger et les mouvements possbles dans le cas échéant
 
-Ainsi on élaborera aussi des algoritmes permettant de déterminer les pièces pouvant bouger et les mouvements possbles dans le cas échéant (ceci sera fait )
+Par conséquant, il suffira à chaque coup de regarder les fils associés et répeter cela jusqu'à avoir la victoire la plus proche

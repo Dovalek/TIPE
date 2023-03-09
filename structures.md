@@ -20,6 +20,7 @@ Ainsi une case sur laquelle est situé un fou noir sera de la forme
 ```
 ('f', 'n')
 ```
+> Remarque : pour les cases vides, on mettra par convention '' en second caractère
 Ainsi par exemple, si est choisie une implémentation en OCaml avec une matrice, on aura pour le plateau de début de partie
 ```
 p0 ->

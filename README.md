@@ -1,6 +1,6 @@
 # TIPE
 
-## Objectifs
+## Objectifs / Déroulement
 > Créer une variante unique des échecs pour ce TIPE
 
 > Implémenter, en ligne si possible, cette variante des échecs

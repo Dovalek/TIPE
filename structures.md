@@ -40,3 +40,10 @@ type arb = Vide | Noeud of ( (char*char Array)*int) * arb list;;
 let exemple = Noeud((p0, 0), [Vide]);;
 ```
 > On associe par convention 0 au plateau p0
+
+## Plateau
+
+Le plateau sera implémenté à l'aide d'une base de données qui aura l'une des 2 spécifications suivantes :
+  - Soit la base gardera les informations de toutes les cases (coordonnées, pièces éventuelle)
+  
+  - Soit la base gardera les informations de toutes les pièces (type, position, capturé ou non)

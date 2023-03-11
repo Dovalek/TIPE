@@ -29,10 +29,12 @@ $C_N = \sum_{m\in M_N}{m}$ le nombre de mouvements noirs possibles
 
 On a donc
 
-$\mathcal{Q} = C_B C_N$ le nombre des différentes situations lors du prochain tour noté $T_{n+1}$.
+$Q= C_B C_N$ le nombre des différentes situations lors du prochain tour noté $T_{n+1}$.
 Notons l'ensemble contenant ces situations P.
 
 Maintenant notons Q' le nombre des différentes possibilités lors du prochain tour $T_{n+1}$ d'une des situations de P.
 De la même manière, on a P' tel que Card(P') = Q'
 
-Si l'on fait l'hypothèse que les nombres de situations possibles est équivalent dans les éléments de P', on peut alors définir le nombre des différentes situations possibles après $T_{n}$ et $T_{n+1}$ noté $\mathcal{P}$ de a manière suivante
+Si l'on fait l'hypothèse que les nombres de situations possibles est équivalent dans les éléments de P', on peut alors définir le nombre des différentes situations possibles après $T_{n}$ et $T_{n+1}$ noté $\mathcal{Q}$ de la manière suivante
+
+$\mathcal{Q}$= Q Q'

@@ -17,15 +17,9 @@
 ## Principe
 > Contrairement à la version traditionnelle, les deux joueurs jouent ici en même temps durant un tour
 
-- Exemple : IMAGE A METTRE
-
 > Pour des raisons évidentes, un tour doit avoir une durée limitée pour garantir une fin de partie, cette durée sera fixée si possible durant l'implémentation
 
 - Remarque : cette condition est nécessaire mais pas suffisante
-
-> Il sera aussi ajouté le choix de ne jouer aucune pièce durant un tour, pour contrebalancer la simultanéité des coups des deux joueurs
-
-- Remarque : cela ajoute une autre condition nécessaire à la terminaison, les joueurs ne peuvent pas ne faire aucun coup à chaque tour, ainsi il y aura un nombre limité de tours passés consécutifs fixé pour l'implémentation
 
 - Remarque : Durant toute la phase de recherche de propriétés, ces deux conditions ci dessus seront supposées remplies
 

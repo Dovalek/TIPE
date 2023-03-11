@@ -51,11 +51,9 @@ tabl_coups (plateau) :
 ```    
 // On crée au préalable une structure stockant les différentes situations et leur constante associée
 tabl_coups (père_plateau) : 
-  Si le roi ne peut pas bouger : 
-      Si le roi est en échec : 
+   Si le roi est en échec: 
+      Si le roi ne peut pas bouger ou être protégé : 
           ajoute à la structure le plateau associé à la constante de victoire/défaite selon la couleur de l'algo
-      Sinon :
-          ajoute à la structure le plateau associé à la constante de match nul
    Sinon :
       on associe à père_plateau sa constante associée
       Si le roi est en échec :

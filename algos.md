@@ -13,7 +13,7 @@ L'importance est déterminée par la nature de la pièce (reine, fou, pion...)
 Pour toutes les pièces n'étant pas un pion, on a la liste de priorités suivante :
   - Roi
   - Reine
-  - Auters pièces ayant un certain nombre de pièces ennemies dans un certain rayon (cette condition peut changer au fil de l'élaboration du TIPE)
+  - Auters pièces ayant un certain nombre de pièces ennemies dans un certain rayon
 
 Ainsi on divise par 2 (grossièrement) le nombre d'opérations
 

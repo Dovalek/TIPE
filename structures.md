@@ -36,7 +36,7 @@ Les fils seront considérés comme une liste (ou si possible une table de hachag
 
 Ainsi en gardant l'exemple précédent, on aura
 ```
-type arb = Vide | Noeud of (char*char Array)*int, arb list;;
+type arb = Vide | Noeud of ( (char*char Array)*int) * arb list;;
 let exemple = Noeud((p0, 0), [Vide]);;
 ```
 > On associe par convention 0 au plateau p0

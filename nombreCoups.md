@@ -13,7 +13,7 @@ Dans notre variante, les mouvements noirs et blancs étant simultanés, on a alo
 
 ## Cas d'un tour quelconque
 
-Lors d'un tour, on a
+Lors d'un tour $T_n$, on a
 
 $B = (b_1, ..., b_{16})$ les pièces blanches pouvant faire respectivement $M_B = (M_{b_1}, ..., M_{b_{16}})$ mouvements différents
 
@@ -29,4 +29,10 @@ $C_N = \sum_{m\in M_N}{m}$ le nombre de mouvements noirs possibles
 
 On a donc
 
-$\mathcal{P} = C_B C_N$ le nombre des différentes situations lors du prochain tour
+$\mathcal{Q} = C_B C_N$ le nombre des différentes situations lors du prochain tour noté $T_{n+1}$.
+Notons l'ensemble contenant ces situations P.
+
+Maintenant notons Q' le nombre des différentes possibilités lors du prochain tour $T_{n+1}$ d'une des situations de P.
+De la même manière, on a P' tel que Card(P') = Q'
+
+Si l'on fait l'hypothèse que les nombres de situations possibles est équivalent dans les éléments de P', on peut alors définir le nombre des différentes situations possibles après $T_{n}$ et $T_{n+1}$ noté $\mathcal{P}$ de a manière suivante

@@ -29,12 +29,19 @@ $C_N = \sum_{m\in M_N}{m}$ le nombre de mouvements noirs possibles
 
 On a donc
 
-$Q= C_B C_N$ le nombre des différentes situations lors du prochain tour noté $T_{n+1}$.
+Q = $C_B C_N$ le nombre des différentes situations lors du prochain tour noté $T_{n+1}$.
 Notons l'ensemble contenant ces situations P.
 
 Maintenant notons Q' le nombre des différentes possibilités lors du prochain tour $T_{n+1}$ d'une des situations de P.
 De la même manière, on a P' tel que Card(P') = Q'
 
-Si l'on fait l'hypothèse que les nombres de situations possibles est équivalent dans les éléments de P', on peut alors définir le nombre des différentes situations possibles après $T_{n}$ et $T_{n+1}$ noté $\mathcal{Q}$ de la manière suivante
+Si est faite l'hypothèse que les nombres de situations possibles est équivalent dans les éléments de P', on peut alors définir le nombre des différentes situations possibles après $T_{n}$ et $T_{n+1}$ noté $\mathcal{Q}$ de la manière suivante
 
-$\mathcal{Q}$= Q Q'
+$\mathcal{Q}$=Q Q'
+
+## Généralisation du nombre de différentes parties possibles après n tours
+
+Soit $T_n$ la suite représentant le nombre de parties différentes existant avec n tours.
+On définit $T_0$=1 et $T_1$=400.
+
+En gardant la notation $B = (b_1, ..., b_{16})$, $N = (n_1, ..., n_{16})$, on définit

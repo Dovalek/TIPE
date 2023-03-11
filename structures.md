@@ -32,7 +32,7 @@ p0 ->
 ```
 A ce plateau sera associé une constante. Ce couple sera ce qui sera ajouté à l'arbre.
 Un Noeud sera constitué du couple mentionné ci dessus et des fils.
-Les fils seront considérés comme une liste (ou si possible une table de hachage) de Noeuds
+Les fils seront considérés comme une liste de Noeuds
 
 Ainsi en gardant l'exemple précédent, on aura
 ```

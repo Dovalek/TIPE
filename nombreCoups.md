@@ -52,11 +52,11 @@ On suppose que ceci est vrai
 ```mermaid
 graph TD
 A[Une situation du tour i]
-A-->B[Une situation S1 du tour i+1]
+A-->B[La première situation S1 du tour i+1]
 A-->C(...)
 C-->E(...)
 C-->Z(...)
-A-->D[Une autre situation Sk du tour i+1]
+A-->D[La dernière situation Sk du tour i+1]
 D-->F(Une situation du tour i+2)
 D-->G(Une situation du tour i+2)
 B-->H(Une situation du tour i+2)

@@ -75,4 +75,4 @@ Par besoin de simplification, posons un nombre limité de tours, qui aura pour c
 De même, nous nous simplifierons la tâche en supposant que le nombre mouvements possibles pour chaque camp est d'environ 20.
 Dans ce cas le nombre de dispositions de pièces au prochain tour est 400.
 
-On a alors $T_{40} = 400^{40} = 4^{40}100^{40} = 2^{80}10^{80} \approx 10^{120}$
+On a alors $T_{40} = 400^{40} = 2^{80}10^{80} \approx 10^{120}$

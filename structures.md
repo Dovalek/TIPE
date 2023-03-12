@@ -47,3 +47,5 @@ Le plateau sera implémenté à l'aide d'une base de données qui aura l'une des
   - Soit la base gardera les informations de toutes les cases (coordonnées, pièces éventuelle)
   
   - Soit la base gardera les informations de toutes les pièces (type, position, capturé ou non)
+
+On se basera sur les données enregistrées pour rafraichir le plateau à chauqe tour.

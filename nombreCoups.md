@@ -48,4 +48,4 @@ En gardant la notation $B = (b_1, ..., b_{16})$, $N = (n_1, ..., n_{16})$, on d�
 
 $M_{B_n}$ et $M_{N_n}$ l'ensemble des mouvements différents des éléments de $B$ et $N$ lors du tour n.
 
-On a alors $T_n = \prod_{i\in[0, n]} (\sum_{i\in M_{B_k}}{i}\sum_{j\in M_{B_k}}{j}) = T_{n-1} \sum_{i\in M_{B_n}}{i}\sum_{j\in M_{B_n}}{j}$
+On a alors $T_n = \prod_{i\in[0, n]} (\sum_{i\in M_{B_k}}{i}\sum_{j\in M_{B_k}}{j}) = T_{n-1} (\sum_{i\in M_{B_n}}{i})(\sum_{j\in M_{B_n}}{j})$

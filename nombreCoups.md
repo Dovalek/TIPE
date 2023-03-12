@@ -42,7 +42,7 @@ $\mathcal{Q}$=Q Q'
 ## Généralisation du nombre de différentes parties possibles après n tours
 
 Soit $T_n$ la suite représentant le nombre de parties différentes existant avec n tours.
-On définit $T_0$=1 et $T_1$=400.
+On définit $T_1$=400.
 
 En gardant la notation $B = (b_1, ..., b_{16})$, $N = (n_1, ..., n_{16})$, on définit
 
@@ -64,7 +64,7 @@ B-->K(Une situation du tour i+2)
 ```
 > On a le même nombre de situations possibles dans les fils directs (S1, .., Sk)
 
-On a alors $T_n = \prod_{k\in[0, n]} ((\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j})) = T_{n-1} (\sum_{i\in M_{B_n}}{i})(\sum_{j\in M_{B_n}}{j})$
+On a alors $T_n = \prod_{k\in[1, n]} ((\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j})) = T_{n-1} (\sum_{i\in M_{B_n}}{i})(\sum_{j\in M_{B_n}}{j})$
 
 > Bien que cela nécessite une conditions puissante, $(\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j})$ devant être constant quelque soit la situation d'un même tour, cela est suffisant pour avoir une estimation du nombre fins possibles.
 
@@ -72,4 +72,7 @@ On a alors $T_n = \prod_{k\in[0, n]} ((\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k
 
 Par besoin de simplification, posons un nombre limité de tours, qui aura pour conséquance de qualifier toute partie à plus de tours comme nulle.
 
-De même, nous nous simplifierons la tâche en supposant que 
+De même, nous nous simplifierons la tâche en supposant que le nombre mouvements possibles pour chaque camp est d'environ 20.
+Dans ce cas le nombre de dispositions de pièces au prochain tour est 400.
+
+On a alors $T_{40} = 400^{40} = 4^{40}100^{40} = 2^{80}10^{80} \approx 10^{120}$

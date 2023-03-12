@@ -45,3 +45,7 @@ Soit $T_n$ la suite représentant le nombre de parties différentes existant ave
 On définit $T_0$=1 et $T_1$=400.
 
 En gardant la notation $B = (b_1, ..., b_{16})$, $N = (n_1, ..., n_{16})$, on définit
+
+$M_{B_n}$ et $M_{N_n}$ l'ensemble des mouvements différents des éléments de $B$ et $N$ lors du tour n.
+
+On a alors $T_n = \prod_{i=0}^n \sum_{i\in M_{B_k}}{i}\sum_{j\in M_{B_k}}{j}$

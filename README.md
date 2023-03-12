@@ -19,8 +19,6 @@ Contrairement à la version traditionnelle, les deux joueurs jouent ici en même
 
 Pour des raisons évidentes, un tour doit avoir une durée limitée pour garantir une fin de partie, cette durée sera fixée si possible durant l'implémentation
 
-> Cette condition est nécessaire mais pas suffisante
-
 > Durant toute la phase de recherche de propriétés, cette condition sera supposée remplie
 
 Pour simplifier, les éventuelles collisions entre pièces ennemies (soit lorsque deux pièces de déplacent vers la même case) lors d'un même tour résultera en un retour aux cases initiales

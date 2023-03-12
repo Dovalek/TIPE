@@ -69,3 +69,5 @@ On a alors $T_n = \prod_{k\in[0, n]} ((\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k
 > Bien que cela nécessite une conditions puissante, $(\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j})$ devant être constant quelque soit la situation d'un même tour, cela est suffisant pour avoir une estimation du nombre fins possibles.
 
 Par besoin de simplification, posons un nombre limité de tours, qui aura pour conséquance de qualifier toute partie à plus de tours comme nulle.
+
+De même, nous nous simplifierons la tâche en supposant que 

@@ -7,7 +7,7 @@ function afficher(i, j, data) {
     return " "; 
 }
 function load() {
-    fetch("http://dovalek.github.io/TIPE/positions.json");
+    fetch("http://dovalek.github.io/TIPE/positions.json")
     .then(response => response.json())
     .then(data => {
         var table = document.getElementById('table');

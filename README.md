@@ -1,5 +1,7 @@
 # TIPE
 
+## Accès au jeu [ici](https://dovalek.github.io/TIPE/index.html)
+
 ## Objectifs / Déroulement
 Créer une variante unique des échecs pour ce TIPE
 

@@ -28,6 +28,11 @@ Pour des raisons évidentes, un tour doit avoir une durée limitée pour garanti
 Pour simplifier, les éventuelles collisions entre pièces ennemies (soit lorsque deux pièces de déplacent vers la même case) lors d'un même tour résultera en un retour aux cases initiales
 
 
+
+
+
+
+
 ## Tentatives d'estimation de l'ordre du nombre de coups possibles
 
 ### Cas du tour initial
@@ -114,6 +119,11 @@ __Consequence :__ Si cette représentation est cohérente avec le jeu, alors l'o
 De plus, le nombre de coups possibles d'un tour à l'autre étant évidemment plus grand dans notre variante, dû à la simultanéité des mouvements noirs et blancs, alors l'arbre des mouvements possibles de notre variant n'est qu'une version "compréssée" de l'arbre traditionnel.
 
 
+
+
+
+
+
 ## Idées d'algorithmes pour un mouvement de pièce
 
 ### Permières idées
@@ -145,45 +155,19 @@ Une solution à cela serait un un arbre de possibilités via un algorithme backt
 On crée une structure (probablement arborescente) de données associant toutes les situation possibles à une valeur numérique pour que l'algorithme puisse l'exploiter pour jouer.
 On la crée indépendemment pour éviter de la recréer à chaque tour.
 
-> Algorithme naturel
-```    
-// On crée au préalable une structure stockant les différentes situations et leur constante associée
-tabl_coups (père_plateau) : 
-   Si le roi est en échec: 
-      Si le roi ne peut pas bouger ou être protégé : 
-          ajoute à la structure le plateau associé à la constante de victoire/défaite selon la couleur de l'algo
-   Sinon :
-      on associe à père_plateau sa constante associée
-      Si le roi est en échec :
-          pièces <- [*pièces alliées pouvant annuler l'état d'échec et pièces ennenies pouvant bouger*]
-          couples <- [*tous les couples possibles entre pièces noires et blanches*]
-      Sinon :
-          pièces <- [*pièces pouvant bouger*]
-          couples <- [*tous les couples possibles entre pièces noires et blanches*]
-      Pour tous les couples faire :
-          mouvements <- [*tous les mouvements possibles des pièces du couple*]
-          Pour tous les mouvements faire :
-              fils_plateau <- père_plateau avec les nouveaux mouvements // il s'agit donc d'un des nombreux fils
-              tabl_coups (fils_plateau)
-```
-Ainsi on élaborera aussi des algoritmes permettant de déterminer les pièces pouvant bouger et les mouvements possbles dans le cas échéant
+Ainsi on élaborera aussi des algoritmes permettant de déterminer les pièces pouvant bouger et les mouvements possbles dans le cas échéant.
 
 Par conséquant, il suffira à chaque coup de regarder les fils associés et répeter cela jusqu'à avoir la victoire la plus proche, ou le score le plus élevé, ou un match nul selon la situation...
-
 
 #### Inconvéniants
 
 A partir du bilan donné précedemment, on peut se questionner sur la possibilité de générer un tel arbre sur machine.
 
-### Approche par numérotation
-
-On génere toutes les situations arrivant immédiatement après un tour, auquels on associe une ou des valeurs numériques.
-
-La conception des valeurs associées sera précisée dans plus bas.
-
 ### Glouton
 
 Le glouton sélectionne la situation liée à un extremum des valeurs associées.
+
+> Selon l'algo glouton choisi, il peut être possible de simuler différents types de jeu.
 
 ### Min-max
 
@@ -317,6 +301,21 @@ type arbre = Vide | Noeud of (plateau * score) * arbre list;;
 ```
 Cette représentation est d'ailleurs celle qui sera finalement choisie pour l'implémentation.
 
-#### Inconvéniant
 
-Cela reste relativement volumineux...
+
+
+
+
+
+
+## Meilleure estimation du nombre de coups
+
+### Relevés de parties
+
+Pour mieux cerner les variations du nombre de coups possibles, il est possible de faire un certain nombre de parties et de relever le nombre de mouvemets possibles à chaque tour pour chaque pièce.
+
+On essaiera dans le TIPE de faire jouer plusieurs fois deux joueurs non humains contre eux dans cette optique.
+
+Après avoir receuilli les données, on pourra tenter de trouver un comportement asymptoique du nombre de coups possibles pour chaque pièce en fonction de l'avancement dans la partie.
+
+Cela permettra de détermnier si l'estimation faite plus haut est pertinente.

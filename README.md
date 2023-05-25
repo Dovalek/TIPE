@@ -185,21 +185,6 @@ La conception des valeurs associées sera précisée dans plus bas.
 
 Le glouton sélectionne la situation liée à un extremum des valeurs associées.
 
-> Algorithme naturel
-
-```
-glouton(plateau) :
-    déclare liste de (liste de (plateau * score))
-    pièces <- [*pièces pouvant bouger*]
-    couples <- [*tous les couples possibles entre pièces noires et blanches*]
-    Pour tous les couples faire :
-        plateaux <- [*tous les mouvements possibles des pièces du couple*]
-        Pour tous les plateaux faire :
-            ajoute à liste (plateau * score associé)
-    sélectionner le plateau avec le meilleur score associé
-    bouge la pièce de son camp identiquement à celle du plateau optimal
-```
-
 ### Min-max
 
 Lors d'un tour $i$, l'algorithme génère les situations des 2 tours suivants et leur associe leurs valeurs.
@@ -212,16 +197,11 @@ On a alors une $l$-ième situation du tour $i+1$ telle que $m=m_l$.
 
 On sélectionne alors le mouvemnt allié associé à la $l$-ième situation comme le coup à jouer.
 
-> Algorithme naturel, en ayant $M$ l'ensemble des minimum et $m=max(M)$
+> Avec un algo ressemblant à celui-ci, on peut se rammener à un algo jouant virtellement à une version traditionnelle des échecs
+> En effet, il lui suffit de trouver un coup optimal pour chaque mouvement que l'adversaire peut faire.
+> Ensuite, en fonction de la pièce bougée par le jouer, l'algo soummet sa pièce.
 
-```
-minmax(plateau) :
-    déclare tableau de (liste de (plateau * score))
-    pièces <- [*pièces pouvant bouger*]
-    couples <- [*tous les couples possibles entre pièces noires et blanches*]
-    Pour tous les couples indexés par i faire : 
-    ...
-```
+> Cependant, avec cet algo, il est impossible avoir joueur non hunain contre un autre joueur non humain.
 
 ## Manières d'estimer la pertinence d'un coup
 
@@ -240,34 +220,6 @@ i) Le nombre de pièces des 2 camps
 ii) La mise en danger des pièces ennemies par les picèes alliées
 
 iii) La capacité de protection des pièces alliées
-
-#### Algorithmes
-
-i) 
-
-ii)
-```
-attaque(p) :
-   pièces <- [pièces ennemies restantes]
-   score <- 0
-   pour toutes les pièces faire :
-      si p menace la pièce :
-           score += valeur associée à la pièce // plus une pièce est menacée, plus le score est haut
-   renvoyer score
-   
-```
-
-iii)
-```
-defendre(p):
-   pièces <- [pièces ennemies restantes]
-   score <- 0
-   pour toutes les pièces faire :
-      si la pièces "menace" p : // on utilisera la même fonction que ci dessus
-           score+=valeur associée à la pièce // plus une pièce est protégée, plus le score est haut
-   renvoyer score
-```
-
 
 ## Idées de structures pour l'implémentation
 

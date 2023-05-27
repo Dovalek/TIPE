@@ -68,13 +68,13 @@ function mvtPion(e, c) { // id = coord, innerhtml = type
     if(c=='n') {
         totalMvt=[[`${x+1}${y}`], [`${x+1}${y+1}`, `${x+1}${y-1}`]];
         if(y==1) {
-            totalMvt[0][1]=(`${x+2}${y}`);
+            totalMvt[0].push(`${x+2}${y}`);
         }
     }
     else {
         totalMvt=[[`${x-1}${y}`], [`${x-1}${y+1}`, `${x-1}${y-1}`]];
         if(y==6) {
-            totalMvt[0][1]=(`${x-2}${y}`);
+            totalMvt[0].push(`${x-2}${y}`);
         }
     }
     for(j=0; j<totalMvt[0].length; j++) {

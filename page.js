@@ -52,11 +52,15 @@ function verifCase(tab, caseMvt, c) { // case à ajouter, tableau dans lequel il
         else if(x.innerHTML!=" ") {
             if(c==="n"&&x.innerHTML[1]==="b") {
                 caseMvt.push(tab[j]);
+                return;
             }
             else if(c==="b"&&x.innerHTML[1]==="n") {
                 caseMvt.push(tab[j]);
+                return;
             }
-            return;
+            else if(c===x.innerHTML[1]) {
+                return;
+            }
         }
         caseMvt.push(tab[j]);
     }
@@ -67,13 +71,13 @@ function mvtPion(e, c) { // id = coord, innerhtml = type
     var totalMvt=[];
     if(c=='n') {
         totalMvt=[[`${x+1}${y}`], [`${x+1}${y+1}`, `${x+1}${y-1}`]];
-        if(y==1) {
+        if(x==1) {
             totalMvt[0].push(`${x+2}${y}`);
         }
     }
     else {
         totalMvt=[[`${x-1}${y}`], [`${x-1}${y+1}`, `${x-1}${y-1}`]];
-        if(y==6) {
+        if(x==6) {
             totalMvt[0].push(`${x-2}${y}`);
         }
     }
@@ -102,7 +106,7 @@ function mvtTour(e, c) { // id = coord, innerhtml = type
     var caseMvt=[];
     const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], []];
-    for(i=0; i<8; i++) {
+    for(i=1; i<=7; i++) {
         totalMvt[0].push(`${x}${y-i}`);
         totalMvt[1].push(`${x+i}${y}`);
         totalMvt[2].push(`${x}${y+i}`);
@@ -126,7 +130,7 @@ function mvtFou(e, c) { // id = coord, innerhtml = type
     var caseMvt=[];
     const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], []];
-    for(i=0; i<8; i++) {
+    for(i=1; i<=7; i++) {
         totalMvt[0].push(`${x+i}${y-i}`);
         totalMvt[1].push(`${x+i}${y+i}`);
         totalMvt[2].push(`${x-i}${y+i}`);
@@ -141,7 +145,7 @@ function mvtRei(e, c) { // id = coord, innerhtml = type
     var caseMvt=[];
     const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], [], [], [], [], []];
-    for(i=0; i<8; i++) {
+    for(i=1; i<=7; i++) {
         totalMvt[0].push(`${x+i}${y-i}`);
         totalMvt[1].push(`${x+i}${y+i}`);
         totalMvt[2].push(`${x-i}${y+i}`);
@@ -160,7 +164,7 @@ function mvtRoi(e, c) { // id = coord, innerhtml = type
     var caseMvt=[];
     const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], [], [], [], [], []];
-    for(i=0; i<1; i++) {
+    for(i=1; i<=1; i++) {
         totalMvt[0].push(`${x+i}${y-i}`);
         totalMvt[1].push(`${x+i}${y+i}`);
         totalMvt[2].push(`${x-i}${y+i}`);

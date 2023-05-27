@@ -66,10 +66,16 @@ function mvtPion(e, c) { // id = coord, innerhtml = type
     const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[];
     if(c=='n') {
-        totalMvt=[[`${x+1}${y}`, `${x+2}${y}`], [`${x+1}${y+1}`, `${x+1}${y-1}`]];
+        totalMvt=[[`${x+1}${y}`], [`${x+1}${y+1}`, `${x+1}${y-1}`]];
+        if(y==1) {
+            totalMvt[0][1]=(`${x+2}${y}`);
+        }
     }
     else {
-        totalMvt=[[`${x-1}${y}`, `${x-2}${y}`], [`${x-1}${y+1}`, `${x-1}${y-1}`]];
+        totalMvt=[[`${x-1}${y}`], [`${x-1}${y+1}`, `${x-1}${y-1}`]];
+        if(y==6) {
+            totalMvt[0][1]=(`${x-2}${y}`);
+        }
     }
     for(j=0; j<totalMvt[0].length; j++) {
         const x=document.getElementById(totalMvt[0][j]);
@@ -78,15 +84,15 @@ function mvtPion(e, c) { // id = coord, innerhtml = type
         }
         caseMvt.push(totalMvt[0][j]);
     }
-    for(j=0; j<totalMvt[0].length; j++) {
-        const x=document.getElementById(totalMvt[0][j]);
+    for(j=0; j<totalMvt[1].length; j++) {
+        const x=document.getElementById(totalMvt[1][j]);
         if (x==null) {}
         else if(x.innerHTML!=" ") {
             if(c==="n"&&x.innerHTML[1]==="b") {
-                caseMvt.push(totalMvt[0][j]);
+                caseMvt.push(totalMvt[1][j]);
             }
             else if(c==="b"&&x.innerHTML[1]==="n") {
-                caseMvt.push(totalMvt[0][j]);
+                caseMvt.push(totalMvt[1][j]);
             }
         }
     }

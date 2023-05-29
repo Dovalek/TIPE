@@ -2,6 +2,10 @@
 // Cependant pour éviter des structures trop volumineuses
 // a chaque tour on redéfinira la nouvelle racine 
 // comme un fils de la racine actuelle
+
+// Un arbre possède la structure suivante :
+// Actuel : array * int
+// Fils : ( array * int ) array
 let arbre = new Object();
 /**
  * @param {arbre} x - Nouvelle racine de l'arbre
@@ -30,7 +34,7 @@ function genere(noeud, couleur, profondeur, limite){
     if(profondeur==limite) {
         return;
     }
-    const data=noeud[0];
+    const data=noeud[0][0];
     let a=0, b=16;
     if(couleur=='b') {
         a=16;
@@ -92,5 +96,4 @@ function tour() {
             genere(data.fils[i], 'n', 1, 2);
         }
     }
-
 }

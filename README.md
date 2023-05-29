@@ -14,9 +14,7 @@ Développer un alogrithme ou une IA utilisant ces propriétés pour jouer contre
 Tenter, si possible, d'occtroyer à ce joueur non humain différentes stratégies que le joueur adversaire (humain) pourra choisir (style défensif, modéré, aggressif)
 
 #### Outils
-Usage de HTML, JavaScript, CSS pour l'interface.
-
-Usage de OCcaml pour la partie algorithmie, avec une liaison à l'interface via un fichier json et [yojson](https://ocaml-community.github.io/yojson/yojson/Yojson/index.html).
+Usage de HTML, JavaScript, CSS.
 
 #### Principe
 Contrairement à la version traditionnelle, les deux joueurs jouent ici en même temps durant un tour

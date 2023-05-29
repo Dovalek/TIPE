@@ -27,7 +27,7 @@ function collision(data, x, y) {
  * @param {int} limite 
  */
 function genere(noeud, couleur, profondeur, limite){
-    if(profondeur==limite) { // EDIT
+    if(profondeur==limite) {
         return;
     }
     const data=noeud[0];
@@ -46,14 +46,14 @@ function genere(noeud, couleur, profondeur, limite){
             const mvt = fct(x, y, c);
             
             for(j=0; j<mvt.length; j++) { // Pour chaque mouvement de pièce alliée
-                var score=0;
                 var dataTmp = data;
                 collision(dataTmp, x, y);
                 dataTmp[i].x=parseInt(mvt[j][0]);
                 dataTmp[i].y=parseInt(mvt[j][1]);
+                
                 a=(a+b)*parseInt(16/(a+b)); // donne 16 si a=0, 0 si a=16
                 b=2*b*0.25*(1+3*parseInt(16/b)); // donne 16 si b=32, 32 si b=16
-
+                
                 for(k=a; k<b; k++) { // Pour toutes les pièces ennemies pouvant bouger
                     if(!data[k].capture) {
                         const tk = data[k].type,
@@ -64,13 +64,12 @@ function genere(noeud, couleur, profondeur, limite){
                         const mvtk = fctk(xk, yk, ck);
 
                         for(l=0; l<mvtk.length; l++) { // Pour chauqe mouvement de pièce ennemie
-                            var scorek = score;
                             var dataTmpK = dataTmp;
                             collision(dataTmpK, x, y);
                             dataTmpK[k].x=parseInt(mvtk[l][0]);
                             dataTmpK[k].y=parseInt(mvtk[l][1]);
             
-                            const nvNoeud = arbre ( actuel = (dataTmpK, scorek), fils = [] );
+                            const nvNoeud = arbre ( actuel = (dataTmpK, score(dataTmpK)), fils = [] );
                             noeud.fils.push(nvNoeud);
                             genere(nvNoeud, couleur, profondeur+1, limite)
                         }

@@ -20,6 +20,12 @@ function collision(data, x, y) {
         }
     }
 }
+/**
+ * @param {arbre} noeud
+ * @param {string} couleur
+ * @param {int} profondeur 
+ * @param {int} limite 
+ */
 function genere(noeud, couleur, profondeur, limite){
     if(profondeur==limite) { // EDIT
         return;
@@ -64,8 +70,9 @@ function genere(noeud, couleur, profondeur, limite){
                             dataTmpK[k].x=parseInt(mvtk[l][0]);
                             dataTmpK[k].y=parseInt(mvtk[l][1]);
             
-                            
-                            arbre.fils.push(dataTmpK, scorek);
+                            const nvNoeud = arbre ( actuel = (dataTmpK, scorek), fils = [] );
+                            noeud.fils.push(nvNoeud);
+                            genere(nvNoeud, couleur, profondeur+1, limite)
                         }
                     }
                 }

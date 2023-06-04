@@ -2,27 +2,27 @@ function verifCase(tab, caseMvt, c) { // case à ajouter, tableau dans lequel il
     for(j=0; j<tab.length; j++) {
         const x=document.getElementById(tab[j]);
         if (x==null) {
-            return;
+            return 0;
         }
         else if(x.innerHTML!=" ") {
             if(c==="n"&&x.innerHTML[1]==="b") {
                 caseMvt.push(tab[j]);
-                return;
+                return valeurs[x.innerHTML[0]];
             }
             else if(c==="b"&&x.innerHTML[1]==="n") {
                 caseMvt.push(tab[j]);
-                return;
+                return valeurs[x.innerHTML[0]];
             }
             else if(c===x.innerHTML[1]) {
-                return;
+                return 0;
             }
         }
         caseMvt.push(tab[j]);
     }
 }
-function mvtPion(e, c) { // id = coord, innerhtml = type
+function mvtPion(x, y, c) { // id = coord, innerhtml = type
+    var s=0;
     var caseMvt=[];
-    const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[];
     if(c=='n') {
         totalMvt=[[`${x+1}${y}`], [`${x+1}${y+1}`, `${x+1}${y-1}`]];
@@ -37,29 +37,31 @@ function mvtPion(e, c) { // id = coord, innerhtml = type
         }
     }
     for(j=0; j<totalMvt[0].length; j++) {
-        const x=document.getElementById(totalMvt[0][j]);
-        if ((x==null)||x.innerHTML!=" ") {
+        const a=document.getElementById(totalMvt[0][j]);
+        if ((a==null)||a.innerHTML!=" ") {
             break;
         }
         caseMvt.push(totalMvt[0][j]);
     }
     for(j=0; j<totalMvt[1].length; j++) {
-        const x=document.getElementById(totalMvt[1][j]);
-        if (x==null) {}
-        else if(x.innerHTML!=" ") {
-            if(c==="n"&&x.innerHTML[1]==="b") {
+        const a=document.getElementById(totalMvt[1][j]);
+        if (a==null) {}
+        else if(a.innerHTML!=" ") {
+            if(c==="n"&&a.innerHTML[1]==="b") {
                 caseMvt.push(totalMvt[1][j]);
+                s+=valeurs[a.innerHTML[0]];;
             }
-            else if(c==="b"&&x.innerHTML[1]==="n") {
+            else if(c==="b"&&a.innerHTML[1]==="n") {
                 caseMvt.push(totalMvt[1][j]);
+                s+=valeurs[a.innerHTML[0]];;
             }
         }
     }
-    return caseMvt;
+    return [caseMvt, s];
 }
-function mvtTour(e, c) { // id = coord, innerhtml = type
+function mvtTour(x, y, c) { // id = coord, innerhtml = type
+    var s=0;
     var caseMvt=[];
-    const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], []];
     for(i=1; i<=7; i++) {
         totalMvt[0].push(`${x}${y-i}`);
@@ -68,22 +70,22 @@ function mvtTour(e, c) { // id = coord, innerhtml = type
         totalMvt[3].push(`${x-i}${y}`);
     } 
     for(i=0; i<totalMvt.length; i++) {
-        verifCase(totalMvt[i], caseMvt, c);
+        s+=verifCase(totalMvt[i], caseMvt, c, true);
     }
-    return caseMvt;
+    return [caseMvt, s];
 }
-function mvtCav(e, c) { // id = coord, innerhtml = type
+function mvtCav(x, y, c) { // id = coord, innerhtml = type
+    var s=0;
     var caseMvt=[];
-    const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[`${x-2}${y-1}`], [`${x-2}${y+1}`], [`${x-1}${y+2}`], [`${x-1}${y-2}`], [`${x+1}${y-2}`], [`${x+1}${y+2}`], [`${x+2}${y-1}`], [`${x+2}${y+1}`]];
     for(i=0; i<totalMvt.length; i++) {
-        verifCase(totalMvt[i], caseMvt, c);
+        s+=verifCase(totalMvt[i], caseMvt, c);
     }
-    return caseMvt;
+    return [caseMvt, s];
 }
-function mvtFou(e, c) { // id = coord, innerhtml = type
+function mvtFou(x, y, c) { // id = coord, innerhtml = type
+    var s=0;
     var caseMvt=[];
-    const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], []];
     for(i=1; i<=7; i++) {
         totalMvt[0].push(`${x+i}${y-i}`);
@@ -92,13 +94,13 @@ function mvtFou(e, c) { // id = coord, innerhtml = type
         totalMvt[3].push(`${x-i}${y-i}`);
     } 
     for(i=0; i<totalMvt.length; i++) {
-        verifCase(totalMvt[i], caseMvt, c);
+        s+=verifCase(totalMvt[i], caseMvt, c);
     }
-    return caseMvt;
+    return [caseMvt, s];
 }
-function mvtRei(e, c) { // id = coord, innerhtml = type
+function mvtRei(x, y, c) { // id = coord, innerhtml = type
+    var s=0;
     var caseMvt=[];
-    const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], [], [], [], [], []];
     for(i=1; i<=7; i++) {
         totalMvt[0].push(`${x+i}${y-i}`);
@@ -111,13 +113,13 @@ function mvtRei(e, c) { // id = coord, innerhtml = type
         totalMvt[7].push(`${x-i}${y}`);
     } 
     for(i=0; i<totalMvt.length; i++) {
-        verifCase(totalMvt[i], caseMvt, c);
+        s+=verifCase(totalMvt[i], caseMvt, c, true);
     }
-    return caseMvt;
+    return [caseMvt, s];
 }
-function mvtRoi(e, c) { // id = coord, innerhtml = type
+function mvtRoi(x, y, c) { // id = coord, innerhtml = type
+    var s=0;
     var caseMvt=[];
-    const x=parseInt(e.target.getAttribute('id')[0]), y=parseInt(e.target.getAttribute('id')[1]);
     var totalMvt=[[], [], [], [], [], [], [], []];
     for(i=1; i<=1; i++) {
         totalMvt[0].push(`${x+i}${y-i}`);
@@ -130,7 +132,7 @@ function mvtRoi(e, c) { // id = coord, innerhtml = type
         totalMvt[7].push(`${x-i}${y}`);
     } 
     for(i=0; i<totalMvt.length; i++) {
-        verifCase(totalMvt[i], caseMvt, c);
+        s+=verifCase(totalMvt[i], caseMvt, c, true);
     }
-    return caseMvt;
+    return [caseMvt, s];
 }

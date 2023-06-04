@@ -1,13 +1,13 @@
 function afficher(i, j, data) {
     for(var k=0; k<32; k++) {
-        if ((data[k].x==i)&&(data[k].y==j)/*&&(data[k].capture==false)*/) {
+        if ((data[k].x==i)&&(data[k].y==j)&&(data[k].capture==false)) {
             return `${data[k].type}${data[k].couleur}`;
         }
     }
     return " "; 
 }
 function load(adress) {
-    if(adress.type=="load") {
+    if(adress.type=="load") { // Pour le premier tour
         localStorage.clear();
         fetch("https://dovalek.github.io/TIPE/positions.json")
         .then(response => response.json())
@@ -45,7 +45,7 @@ function load(adress) {
 
 const mouvementsPiece={p:0, t:1, c:2, f:3, r:4, k:5};
 const mvtFonc=[mvtPion, mvtTour, mvtCav, mvtFou, mvtRei, mvtRoi];
-var tabMvt=[[], []];
+var tabMvt=[[], []]; // pièce sélectionnée (id, coord) * mouvements possibles
 function egalTab(t1, t2) {
     if(t1.length!=t2.length){
         return false;
@@ -70,18 +70,20 @@ function f(e) { // id = coord, innerhtml = type
     if (Pourquoi_In_NeMarchePas(`${e.target.getAttribute('id')}`, tabMvt[1])) {
         const abs = parseInt(e.target.getAttribute('id')[0]),
               ord = parseInt(e.target.getAttribute('id')[1]);
-        if(localStorage.length==0) {
+        if(localStorage.length==0) { // Pour le premier tour
             fetch('https://dovalek.github.io/TIPE/positions.json')
             .then(response => response.json())
             .then(data => {
-                for(i=0; i<data.length; i++) {
-                    if((data[i].x==tabMvt[0][1][0])&&(data[i].y==tabMvt[0][1][1])&&(data[i].type==tabMvt[0][0][0])) {
+                for(i=16; i<data.length; i++) {
+                    const [id, coord] = tabMvt[0];
+                    if((data[i].x==coord[0])&&(data[i].y==coord[1])&&(data[i].type==id[0])) {
                         data[i].x = abs;
                         data[i].y = ord;
                         const modifiedJson = JSON.stringify(data);
                         localStorage.setItem('data', modifiedJson);
                         tabMvt=[[], []];
                         load(localStorage);
+                        break;
                     }
                 }
             })
@@ -92,26 +94,30 @@ function f(e) { // id = coord, innerhtml = type
         else {
             var data = localStorage.getItem('data');
             data=JSON.parse(data)
-            for(i=0; i<data.length; i++) {
-                if((data[i].x==tabMvt[0][1][0])&&(data[i].y==tabMvt[0][1][1])&&(data[i].type==tabMvt[0][0][0])) {
+            for(i=16; i<data.length; i++) {
+                const [id, coord] = tabMvt[0];
+                if((data[i].x==coord[0])&&(data[i].y==coord[1])&&(data[i].type==id[0])) {
                     data[i].x = abs;
                     data[i].y = ord;
                     localStorage.setItem('data', JSON.stringify(data));
                     tabMvt=[[], []];
                     load(localStorage);
+                    break;
                 }
             }
         }
     }
     else if ( (e.target.getAttribute('id')!=null) && (e.target.innerHTML!==" ") )  {
-        const x=e.target.innerHTML[0], 
+        const t=e.target.innerHTML[0], 
               c=e.target.innerHTML[1];
-        const fct=mvtFonc[mouvementsPiece[x]];
+        const x=parseInt(e.target.getAttribute('id')[0]), 
+              y=parseInt(e.target.getAttribute('id')[1]);
+        const fct=mvtFonc[mouvementsPiece[t]];
         for(i=0; i<tabMvt[1].length; i++) {
             var cell = document.getElementById(tabMvt[1][i]);
             cell.style.backgroundColor = "white";
         }
-        const tabTmp=fct(e, c);
+        const [tabTmp, s]=fct(x, y, c);
         if(egalTab(tabMvt[1], tabTmp)) {
             tabMvt[0]=[];
             tabMvt[1]=[];

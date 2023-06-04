@@ -31,9 +31,12 @@ function score(data, couleur) {
     }
     for(i=a; i<b; i++) {  // Pour toutes les pièces alliées
         if(!data[i].capture) {
-            const t = data[i].type;
+            const x = data[i].x,
+y = data[i].y,
+c = data[i].couleur,
+t = data[i].type;
             const fct=mvtFonc[mouvementsPiece[t]];
-            mvt, s = fct(x, y, c, true);
+            const [mvt, s] = fct(x, y, c);
             score+=s;
         }
         a=(a+b)*parseInt(16/(a+b)); // donne 16 si a=0, 0 si a=16
@@ -41,10 +44,13 @@ function score(data, couleur) {
 
         for(j=a; j<b; i++) { // Pour toutes les pièces ennemies
             if(!data[j].capture) {
-                const tj = data[j].type;
-                const fct=mvtFonc[mouvementsPiece[tj]];
-                mvt, s = fct(x, y, c);
-                score-=s;
+                const xj = data[j].x,
+yj = data[j].y,
+cj = data[j].couleur,
+tj = data[j].type;
+                const fctj=mvtFonc[mouvementsPiece[tj]];
+                const [mvtj, sj] = fctj(xj, yj, cj);
+                score-=sj;
             }
         }
     }
@@ -75,7 +81,7 @@ function genere(noeud, couleur, profondeur, limite){
                   x = data[i].x,
                   y = data[i].y;
             const fct=mvtFonc[mouvementsPiece[t]];
-            mvt = fct(x, y, c);
+            const [mvt, s] = fct(x, y, c);
             
             for(j=0; j<mvt.length; j++) { 
                 // Pour chaque mouvement de pièce alliée
@@ -97,7 +103,7 @@ function genere(noeud, couleur, profondeur, limite){
                               xk = data[k].x,
                               yk = data[k].y;
                         const fctk = mvtFonc[mouvementsPiece[tk]];
-                        const mvtk = fctk(xk, yk, ck);
+                        const [mvtk, sk] = fctk(xk, yk, ck);
 
                         for(l=0; l<mvtk.length; l++) { 
                             // Pour chauqe mouvement de pièce ennemie
@@ -109,6 +115,7 @@ function genere(noeud, couleur, profondeur, limite){
                             const nvNoeud = arbre ( actuel = (dataTmpK, score(dataTmpK, couleur)), fils = [] );
                             noeud.fils.push(nvNoeud);
                             genere(nvNoeud, couleur, profondeur+1, limite)
+return;
                         }
                     }
                 }

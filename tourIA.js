@@ -124,9 +124,64 @@ function genere(noeud, couleur, profondeur, limite){
     }
 }
 
-function triParScore(tab) {
-
+function inferieur(a, b) {
+    
 }
+
+function mergeSort(arr, score) {
+    const n = arr.length;
+    const tempArray = Array(n).fill(0); // Temporary array for merging
+  
+    for (let size = 1; size < n; size *= 2) {
+      for (let leftStart = 0; leftStart < n - 1; leftStart += 2 * size) {
+        const mid = Math.min(leftStart + size - 1, n - 1);
+        const rightEnd = Math.min(leftStart + 2 * size - 1, n - 1);
+
+        merge(arr, tempArray, leftStart, mid, rightEnd);
+      }
+    }
+    if (score == -1) {
+        arr.reverse();
+    }
+    return arr;
+  }
+function merge(arr, tempArray, leftStart, mid, rightEnd) {
+    let leftIndex = leftStart;
+    let rightIndex = mid + 1;
+    let tempIndex = leftStart;
+  
+    // Merge elements from both halves into tempArray
+    while (leftIndex <= mid && rightIndex <= rightEnd) {
+      if (inferieur(arr[leftIndex], arr[rightIndex])) {
+        tempArray[tempIndex] = arr[leftIndex];
+        leftIndex++;
+      } else {
+        tempArray[tempIndex] = arr[rightIndex];
+        rightIndex++;
+      }
+      tempIndex++;
+    }
+  
+    // Copy the remaining elements from the left half, if any
+    while (leftIndex <= mid) {
+      tempArray[tempIndex] = arr[leftIndex];
+      leftIndex++;
+      tempIndex++;
+    }
+  
+    // Copy the remaining elements from the right half, if any
+    while (rightIndex <= rightEnd) {
+      tempArray[tempIndex] = arr[rightIndex];
+      rightIndex++;
+      tempIndex++;
+    }
+  
+    // Copy the sorted elements from tempArray back to arr
+    for (let i = leftStart; i <= rightEnd; i++) {
+      arr[i] = tempArray[i];
+    }
+}
+
 
 function tour() {
     var data = localStorage.getItem('data');
@@ -145,6 +200,7 @@ function tour() {
         }
     }
     var meilleures_dispos = [];
+    var min_fils = [];
     for(i=0; i<arbre.fils.length; i++) {
         for(j=0; j<arbre.fils[i].length; j++) {
             

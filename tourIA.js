@@ -45,9 +45,9 @@ t = data[i].type;
         for(j=a; j<b; i++) { // Pour toutes les pièces ennemies
             if(!data[j].capture) {
                 const xj = data[j].x,
-yj = data[j].y,
-cj = data[j].couleur,
-tj = data[j].type;
+                      yj = data[j].y,
+                      cj = data[j].couleur,
+                      tj = data[j].type;
                 const fctj=mvtFonc[mouvementsPiece[tj]];
                 const [mvtj, sj] = fctj(xj, yj, cj);
                 score-=sj;
@@ -115,7 +115,7 @@ function genere(noeud, couleur, profondeur, limite){
                             const nvNoeud = arbre ( actuel = (dataTmpK, score(dataTmpK, couleur)), fils = [] );
                             noeud.fils.push(nvNoeud);
                             genere(nvNoeud, couleur, profondeur+1, limite)
-return;
+                            return;
                         }
                     }
                 }

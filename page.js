@@ -79,16 +79,19 @@ function f(e) { // id = coord, innerhtml = type
                     if((data[i].x==coord[0])&&(data[i].y==coord[1])&&(data[i].type==id[0])) {
                         data[i].x = abs;
                         data[i].y = ord;
+                        tabMvt=[[], []];
+                        const mvtBot = tour(data);
+                        let piece_bot = mvtBot[0];
+                        if(piece_bot.actuel[3]!=abs && piece_bot.actuel[4]!=ord) {
+                            
+                        }    
+                        else {
+                            piece_bot = mvtBot[1];
+                        }                
+                        data[piece_bot.actuel[2]].x = piece_bot.actuel[3];
+                        data[piece_bot.actuel[2]].x = piece_bot.actuel[4];
                         const modifiedJson = JSON.stringify(data);
                         localStorage.setItem('data', modifiedJson);
-                        tabMvt=[[], []];
-                        const mvtBot = tour();
-
-
-
-
-
-
 
                         load(localStorage);
                         break;
@@ -109,12 +112,18 @@ function f(e) { // id = coord, innerhtml = type
                     data[i].y = ord;
                     localStorage.setItem('data', JSON.stringify(data));
                     tabMvt=[[], []];
-                    const mvtBot = tour();
-
-
-
-
-
+                    const mvtBot = tour(data);
+                    let piece_bot = mvtBot[0];
+                    if(piece_bot.actuel[3]!=abs && piece_bot.actuel[4]!=ord) {
+                        
+                    }    
+                    else {
+                        piece_bot = mvtBot[1];
+                    }                
+                    data[piece_bot.actuel[2]].x = piece_bot.actuel[3];
+                    data[piece_bot.actuel[2]].x = piece_bot.actuel[4];
+                    const modifiedJson = JSON.stringify(data);
+                    localStorage.setItem('data', modifiedJson);
                     load(localStorage);
                     break;
                 }

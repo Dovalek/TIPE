@@ -4,12 +4,13 @@
 // comme un fils de la racine actuelle
 
 // Un arbre possède la structure suivante :
-// Actuel : array * int
+// Actuel : array * int * int * int * int  (plateau, score, indice piece bougée, nouveau x, nouveau y)
 // Fils : arbre array
 let arbre = new Object();
 /**
  * @param {arbre} x - Nouvelle racine de l'arbre
  */
+const vide = { actuel : [ [], -1, -1, -1, -1 ], fils : [] };
 function nvRacine(x) {
     this.fils = x.fils;
     this.actuel = x.actuel;
@@ -32,17 +33,17 @@ function score(data, couleur) {
     for(i=a; i<b; i++) {  // Pour toutes les pièces alliées
         if(!data[i].capture) {
             const x = data[i].x,
-y = data[i].y,
-c = data[i].couleur,
-t = data[i].type;
+                  y = data[i].y,
+                  c = data[i].couleur,
+                  t = data[i].type;
             const fct=mvtFonc[mouvementsPiece[t]];
             const [mvt, s] = fct(x, y, c);
             score+=s;
         }
-        a=(a+b)*parseInt(16/(a+b)); // donne 16 si a=0, 0 si a=16
-        b=2*b*0.25*(1+3*parseInt(16/b)); // donne 16 si b=32, 32 si b=16
+        newA=(a+b)*parseInt(16/(a+b)); // donne 16 si a=0, 0 si a=16
+        newB=2*b*0.25*(1+3*parseInt(16/b)); // donne 16 si b=32, 32 si b=16
 
-        for(j=a; j<b; i++) { // Pour toutes les pièces ennemies
+        for(j=newA; j<newB; i++) { // Pour toutes les pièces ennemies
             if(!data[j].capture) {
                 const xj = data[j].x,
                       yj = data[j].y,
@@ -85,17 +86,19 @@ function genere(noeud, couleur, profondeur, limite){
             
             for(j=0; j<mvt.length; j++) { 
                 // Pour chaque mouvement de pièce alliée
+                const xi = parseInt(mvt[j][0]),
+                      yi = parseInt(mvt[j][1]);
                 var dataTmp = data;
-                collision(dataTmp, parseInt(mvt[j][0]), parseInt(mvt[j][1]) );
-                dataTmp[i].x=parseInt(mvt[j][0]);
-                dataTmp[i].y=parseInt(mvt[j][1]);
+                collision(dataTmp, xi, yi);
+                dataTmp[i].x=xi;
+                dataTmp[i].y=yi;
                 
-                a=(a+b)*parseInt(16/(a+b));
+                const newA=(a+b)*parseInt(16/(a+b));
                 // donne 16 si a=0, 0 si a=16
-                b=2*b*0.25*(1+3*parseInt(16/b)); 
+                const newB=2*b*0.25*(1+3*parseInt(16/b)); 
                 // donne 16 si b=32, 32 si b=16
-                
-                for(k=a; k<b; k++) { 
+
+                for(k=newA; k<newB; k++) { 
                     // Pour toutes les pièces ennemies pouvant bouger
                     if(!data[k].capture) {
                         const tk = data[k].type,
@@ -112,9 +115,9 @@ function genere(noeud, couleur, profondeur, limite){
                             dataTmpK[k].x=parseInt(mvtk[l][0]);
                             dataTmpK[k].y=parseInt(mvtk[l][1]);
 
-                            const nvNoeud = arbre ( actuel = (dataTmpK, score(dataTmpK, couleur)), fils = [] );
+                            const nvNoeud = { actuel : (dataTmpK, score(dataTmpK, couleur), i, xi, yi), fils : [] };
                             noeud.fils.push(nvNoeud);
-                            genere(nvNoeud, couleur, profondeur+1, limite)
+                            genere(nvNoeud, couleur, profondeur+1, limite);
                             return;
                         }
                     }
@@ -125,10 +128,10 @@ function genere(noeud, couleur, profondeur, limite){
 }
 
 function inferieur(a, b) {
-    
+    return a.actuel[1]-b.actuel[1]<0
 }
 
-function mergeSort(arr, score) {
+function triScore(arr, score) {
     const n = arr.length;
     const tempArray = Array(n).fill(0); // Temporary array for merging
   
@@ -137,15 +140,15 @@ function mergeSort(arr, score) {
         const mid = Math.min(leftStart + size - 1, n - 1);
         const rightEnd = Math.min(leftStart + 2 * size - 1, n - 1);
 
-        merge(arr, tempArray, leftStart, mid, rightEnd);
+        fusion(arr, tempArray, leftStart, mid, rightEnd);
       }
     }
     if (score == -1) {
         arr.reverse();
     }
     return arr;
-  }
-function merge(arr, tempArray, leftStart, mid, rightEnd) {
+}
+function fusion(arr, tempArray, leftStart, mid, rightEnd) {
     let leftIndex = leftStart;
     let rightIndex = mid + 1;
     let tempIndex = leftStart;
@@ -199,11 +202,16 @@ function tour() {
             genere(data.fils[i], 'n', 1, 2);
         }
     }
-    var meilleures_dispos = [];
     var min_fils = [];
     for(i=0; i<arbre.fils.length; i++) {
+        let min = vide;
         for(j=0; j<arbre.fils[i].length; j++) {
-            
+            if( inferieur(arbre.fils[i][j], min) ) {
+                min=arbre.fils[i][j];
+            }
         }
+        min_fils[i]=min;
+        triScore(min_fils, 1);
     }
+    return min_fils;
 }

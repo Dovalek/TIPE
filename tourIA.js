@@ -6,19 +6,19 @@
 // Un arbre possède la structure suivante :
 // Actuel : array * int * int * int * int  (plateau, score, indice piece bougée, nouveau x, nouveau y)
 // Fils : arbre array
-let arbre = new Object();
 /**
  * @param {arbre} x - Nouvelle racine de l'arbre
  */
 const vide = { actuel : [ [], -1, -1, -1, -1 ], fils : [] };
+let arbre = vide;
 function nvRacine(x) {
     this.fils = x.fils;
     this.actuel = x.actuel;
 }
 function collision(data, x, y) {
-    for(i=0; i<32; i++) {
-        if(data[i].x==x&&data[i].y==y) {
-            data[i].capture=true;
+    for(o=0; o<32; o++) {
+        if(data[o].x==x&&data[o].y==y) {
+            data[o].capture=true;
         }
     }
 }
@@ -64,10 +64,11 @@ function score(data, couleur) {
  * @param {int} limite 
  */
 function genere(noeud, couleur, profondeur, limite){
+    console.log(noeud);
     if(profondeur==limite) {
         return;
     }
-    const data=noeud[0];
+    const data=noeud.actuel[0];
     let a=0, b=16;
     if(couleur=='b') {
         a=16;
@@ -83,7 +84,7 @@ function genere(noeud, couleur, profondeur, limite){
                   y = data[i].y;
             const fct=mvtFonc[mouvementsPiece[t]];
             const [mvt, s] = fct(x, y, c);
-            
+
             for(j=0; j<mvt.length; j++) { 
                 // Pour chaque mouvement de pièce alliée
                 const xi = parseInt(mvt[j][0]),
@@ -115,7 +116,7 @@ function genere(noeud, couleur, profondeur, limite){
                             dataTmpK[k].x=parseInt(mvtk[l][0]);
                             dataTmpK[k].y=parseInt(mvtk[l][1]);
 
-                            const nvNoeud = { actuel : (dataTmpK, score(dataTmpK, couleur), i, xi, yi), fils : [] };
+                            const nvNoeud = { actuel : (dataTmpK, sk, i, xi, yi), fils : [] };
                             noeud.fils.push(nvNoeud);
                             genere(nvNoeud, couleur, profondeur+1, limite);
                             return;
@@ -186,20 +187,22 @@ function fusion(arr, tempArray, leftStart, mid, rightEnd) {
 }
 
 
-function tour() {
-    var data = localStorage.getItem('data');
-    data=JSON.parse(data);
-    if(arbre.actuel==null) { // lors du premier tour
-                             // création de 2 générations 
-                             // pour toujours avoir 1 tour d'avance
-        arbre.actuel = data, 0;
+function tour(data) {
+    var tab = localStorage.getItem('data');
+    if(tab==null) { // lors du premier tour
+                    // création de 2 générations 
+                    // pour toujours avoir 1 tour d'avance
+        tab = data; 
+        arbre.actuel = [tab, 0, -1, -1, -1];
         arbre.fils = [];
-        genere(data, 'n', 0, 2);
+        console.log('arbre :', arbre);
+        genere(arbre, 'n', 0, 2);
+
     }
     else { 
         // lors des autres tours
         for(i=0; i<arbre.fils.length; i++) {
-            genere(data.fils[i], 'n', 1, 2);
+            genere(tab.fils[i], 'n', 1, 2);
         }
     }
     var min_fils = [];
@@ -210,7 +213,7 @@ function tour() {
                 min=arbre.fils[i][j];
             }
         }
-        min_fils[i]=min;
+        min_fils.push(min);
         triScore(min_fils, 1);
     }
     return min_fils;

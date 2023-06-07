@@ -82,6 +82,14 @@ function f(e) { // id = coord, innerhtml = type
                         const modifiedJson = JSON.stringify(data);
                         localStorage.setItem('data', modifiedJson);
                         tabMvt=[[], []];
+                        const mvtBot = tour();
+
+
+
+
+
+
+
                         load(localStorage);
                         break;
                     }
@@ -101,6 +109,12 @@ function f(e) { // id = coord, innerhtml = type
                     data[i].y = ord;
                     localStorage.setItem('data', JSON.stringify(data));
                     tabMvt=[[], []];
+                    const mvtBot = tour();
+
+
+
+
+
                     load(localStorage);
                     break;
                 }

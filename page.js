@@ -87,7 +87,7 @@ function f(e) { // id = coord, innerhtml = type
                         }    
                         else {
                             piece_bot = mvtBot[1];
-                        }                
+                        }
                         data[piece_bot.actuel[2]].x = piece_bot.actuel[3];
                         data[piece_bot.actuel[2]].x = piece_bot.actuel[4];
                         const modifiedJson = JSON.stringify(data);

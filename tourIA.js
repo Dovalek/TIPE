@@ -64,7 +64,6 @@ function score(data, couleur) {
  * @param {int} limite 
  */
 function genere(noeud, couleur, profondeur, limite){
-    console.log(noeud);
     if(profondeur==limite) {
         return;
     }
@@ -119,7 +118,6 @@ function genere(noeud, couleur, profondeur, limite){
                             const nvNoeud = { actuel : (dataTmpK, sk, i, xi, yi), fils : [] };
                             noeud.fils.push(nvNoeud);
                             genere(nvNoeud, couleur, profondeur+1, limite);
-                            return;
                         }
                     }
                 }

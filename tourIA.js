@@ -115,9 +115,13 @@ function genere(noeud, couleur, profondeur, limite){
                             dataTmpK[k].x=parseInt(mvtk[l][0]);
                             dataTmpK[k].y=parseInt(mvtk[l][1]);
 
-                            const nvNoeud = { actuel : (dataTmpK, sk, i, xi, yi), fils : [] };
+                            const nvNoeud = { actuel : [dataTmpK, sk, i, xi, yi], fils : [] };
                             noeud.fils.push(nvNoeud);
+                            if(noeud==arbre) {
+                                console.log(noeud.fils);
+                            }
                             genere(nvNoeud, couleur, profondeur+1, limite);
+                            if (l==4) {return};
                         }
                     }
                 }
@@ -193,7 +197,6 @@ function tour(data) {
         tab = data; 
         arbre.actuel = [tab, 0, -1, -1, -1];
         arbre.fils = [];
-        console.log('arbre :', arbre);
         genere(arbre, 'n', 0, 2);
 
     }

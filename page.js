@@ -17,9 +17,9 @@ function load(adress) {
             for(var i = 0;i < 8; i++){
                 var str = "<tr style=\"height:100px\">";
                 for(var j=0; j<8; j++) {
-                    str += `<td id="${i}${j}">`+ afficher(i, j, data) + "</td>";
+                    str += `<td style="width:100px; height:100px" id="${i}${j}">`+ afficher(i, j, data) + "</td>";
                 }
-                str+="</tr>";
+                str+="</tr>";   
                 table.innerHTML += str;
             }
         })
@@ -35,7 +35,7 @@ function load(adress) {
         for(var i = 0;i < 8; i++){
             var str = "<tr style=\"height:100px\">";
             for(var j=0; j<8; j++) {
-                str += `<td id="${i}${j}">`+ afficher(i, j, data) + "</td>";
+                str += `<td style="width:100px; height:100px" id="${i}${j}">`+ afficher(i, j, data) + "</td>";
             }
             str+="</tr>";
             table.innerHTML += str;
@@ -87,7 +87,7 @@ function f(e) { // id = coord, innerhtml = type
                         }    
                         else {
                             piece_bot = mvtBot[1];
-                        }
+                        }  
                         data[piece_bot.actuel[2]].x = piece_bot.actuel[3];
                         data[piece_bot.actuel[2]].x = piece_bot.actuel[4];
                         const modifiedJson = JSON.stringify(data);

@@ -49,9 +49,9 @@ Dans notre variante, les mouvements noirs et blancs étant simultanés, on a alo
 Soit $T=(T_n)_{n \in N *}$ la suite représentant le nombre de parties différentes existant avec $n$ tours.
 On pose $T_1$=400.
 
-En gardant la notation $B = (b_1, ..., b_{16})$, $N = (n_1, ..., n_{16})$, on définit
+En utilisant la notation $B = (b_1, ..., b_{p})$, $N = (n_1, ..., n_{p})$ représentant les pièces, on définit
 
-$M_{B_n}$ et $M_{N_n}$ l'ensemble des mouvements différents des éléments de $B$ et $N$ lors du tour n.
+$M_{B_n}$ et $M_{N_n}$ le nombre de mouvements possibles des éléments de $B$ et $N$ lors du tour n.
 
 On suppose que ceci est vrai
 ```mermaid
@@ -62,14 +62,14 @@ A-->C(...)
 C-->E(...)
 C-->Z(...)
 A-->D[La dernière situation Sk du tour i+1]
-D-->F(Une situation du tour i+2)
-D-->G(Une situation du tour i+2)
-B-->H(Une situation du tour i+2)
-B-->K(Une situation du tour i+2)
+D-->F(Situation 1 du tour i+2)
+D-->G(Situation 2  du tour i+2)
+B-->H(Situation 1 du tour i+2)
+B-->K(Situation 2 du tour i+2)
 ```
 > On a le même nombre de situations possibles dans les fils directs (S1, .., Sk)
 
-On a alors $T_n = \prod_{k\in[1, n]} ((\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j})) = T_{n-1} (\sum_{i\in M_{B_n}}{i})(\sum_{j\in M_{B_n}}{j})$
+On a alors $T_n = T_{n-1} (\sum_{i\in M_{B_n}}{i})(\sum_{j\in M_{B_n}}{j}) = \prod_{k\in[1, n]} ((\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j}))$
 
 > Bien que cela nécessite une conditions puissante, $(\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j})$ devant être constant quelque soit la situation d'un même tour, cela est suffisant pour avoir une estimation du nombre fins possibles.
 

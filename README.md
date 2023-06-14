@@ -73,24 +73,6 @@ On a alors $T_n = T_{n-1} (\sum_{i\in M_{B_n}}{i})(\sum_{j\in M_{B_n}}{j}) = \pr
 
 > Bien que cela nécessite une conditions puissante, $(\sum_{i\in M_{B_k}}{i})(\sum_{j\in M_{B_k}}{j})$ devant être constant quelque soit la situation d'un même tour, cela est suffisant pour avoir une estimation du nombre fins possibles.
 
-### Application simple
-
-Par besoin de simplification, posons un nombre limité de tours, qui aura pour conséquance de qualifier toute partie à plus de tours comme nulle.
-
-De même, nous nous simplifierons la tâche en supposant que le nombre mouvements possibles pour chaque camp est d'environ 20.
-Dans ce cas le nombre de dispositions de pièces au prochain tour est 400.
-
-On a alors $T_{40} = 400^{40} = 2^{80}10^{80} \approx 10^{120}$
-
-Or ceci est le [nombre de Shannon](https://fr.wikipedia.org/wiki/Nombre_de_Shannon), un nombre déterminant le nombre de coups possibles dans une partie.
-
-__Consequence :__ Si cette représentation est cohérente avec le jeu, alors l'ordre du nombre de coups possible dans notre variante est le même que celui de la version traditionnelle.
-
-De plus, le nombre de coups possibles d'un tour à l'autre étant évidemment plus grand dans notre variante, dû à la simultanéité des mouvements noirs et blancs, alors l'arbre des mouvements possibles de notre variant n'est qu'une version "compréssée" de l'arbre traditionnel.
-
-
-
-
 
 
 

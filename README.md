@@ -269,5 +269,3 @@ Pour mieux cerner les variations du nombre de coups possibles, il est possible d
 On essaiera dans le TIPE de faire jouer plusieurs fois deux joueurs non humains contre eux dans cette optique.
 
 Après avoir receuilli les données, on pourra tenter de trouver un comportement asymptoique du nombre de coups possibles pour chaque pièce en fonction de l'avancement dans la partie.
-
-Cela permettra de détermnier si l'estimation faite plus haut est pertinente.

@@ -6,14 +6,17 @@
 // Un arbre possède la structure suivante :
 // Actuel : array * int * int * int * int  (plateau, score, indice piece bougée, nouveau x, nouveau y)
 // Fils : arbre array
-/**
- * @param {arbre} x - Nouvelle racine de l'arbre
- */
+
 const vide = { actuel : [ [], -1, -1, -1, -1 ], fils : [] };
 let arbre = vide;
-function nvRacine(x) {
-    this.fils = x.fils;
-    this.actuel = x.actuel;
+/**
+ * @param {arbre} x - Nouvelle racine de l'arbre
+ * @param {int} iFils - Nouvelle racine de l'arbre
+ */
+function nvRacine(x, iFils) {
+    const Fils = x.fils[iFils];
+    x.fils = Fils.fils;
+    x.actuel = Fils.actuel;
 }
 function collision(data, x, y) {
     for(o=0; o<32; o++) {
@@ -61,67 +64,107 @@ function score(data, couleur) {
  * @param {arbre} noeud
  * @param {string} couleur
  * @param {int} profondeur 
- * @param {int} limite 
  */
-function genere(noeud, couleur, profondeur, limite){
-    if(profondeur==limite) {
-        return;
-    }
+function genere(noeud, couleur, profondeur){
     const data=noeud.actuel[0];
     let a=0, b=16;
     if(couleur=='b') {
         a=16;
         b=32;
     }
-    for(i=a; i<b; i++) { 
+    for(i1=a; i1<b; i1++) { 
         // Pour toutes les pièces alliées pouvant bouger
-        if(!data[i].capture) { 
-            var score=0;
-            const t = data[i].type,
-                  c = data[i].couleur,
-                  x = data[i].x,
-                  y = data[i].y;
-            const fct=mvtFonc[mouvementsPiece[t]];
-            const [mvt, s] = fct(x, y, c);
+        if(!data[i1].capture) { 
+            const t1 = data[i1].type,
+                  c1 = data[i1].couleur,
+                  x1 = data[i1].x,
+                  y1 = data[i1].y;
+            const fct1=mvtFonc[mouvementsPiece[t1]];
+            const [mvt1, s] = fct1(x1, y1, c1);
 
-            for(j=0; j<mvt.length; j++) { 
+            for(j1=0; j1<mvt1.length; j1++) { 
                 // Pour chaque mouvement de pièce alliée
-                const xi = parseInt(mvt[j][0]),
-                      yi = parseInt(mvt[j][1]);
-                var dataTmp = data;
-                collision(dataTmp, xi, yi);
-                dataTmp[i].x=xi;
-                dataTmp[i].y=yi;
+                const xi1 = parseInt(mvt[j1][0]),
+                      yi1 = parseInt(mvt[j1][1]);
+                var dataTmp1 = data;
+                collision(dataTmp1, xi1, yi1);
+                dataTmp1[i1].x=xi1;
+                dataTmp1[i1].y=yi1;
                 
                 const newA=(a+b)*parseInt(16/(a+b));
                 // donne 16 si a=0, 0 si a=16
                 const newB=2*b*0.25*(1+3*parseInt(16/b)); 
                 // donne 16 si b=32, 32 si b=16
 
-                for(k=newA; k<newB; k++) { 
+                for(k1=newA; k1<newB; k1++) { 
                     // Pour toutes les pièces ennemies pouvant bouger
-                    if(!data[k].capture) {
-                        const tk = data[k].type,
-                              ck = data[k].couleur,
-                              xk = data[k].x,
-                              yk = data[k].y;
-                        const fctk = mvtFonc[mouvementsPiece[tk]];
-                        const [mvtk, sk] = fctk(xk, yk, ck);
+                    if(!data[k1].capture) {
+                        const tk1 = data[k1].type,
+                              ck1 = data[k1].couleur,
+                              xk1 = data[k1].x,
+                              yk1 = data[k1].y;
+                        const fctk1 = mvtFonc[mouvementsPiece[tk1]];
+                        const [mvtk1, sk] = fctk1(xk1, yk1, ck1);
 
-                        for(l=0; l<mvtk.length; l++) { 
+                        for(l1=0; l1<mvtk1.length; l1++) { 
                             // Pour chauqe mouvement de pièce ennemie
-                            var dataTmpK = dataTmp;
-                            collision(dataTmpK, parseInt(mvtk[l][0]), parseInt(mvtk[l][1]));
-                            dataTmpK[k].x=parseInt(mvtk[l][0]);
-                            dataTmpK[k].y=parseInt(mvtk[l][1]);
+                            var dataTmpK1 = dataTmp1;
+                            collision(dataTmpK1, parseInt(mvtk1[l1][0]), parseInt(mvtk1[l1][1]));
+                            dataTmpK1[k1].x=parseInt(mvtk[l1][0]);
+                            dataTmpK1[k1].y=parseInt(mvtk[l1][1]);
 
-                            const nvNoeud = { actuel : [dataTmpK, sk, i, xi, yi], fils : [] };
+                            const nvNoeud = { actuel : [dataTmpK1, 0, i1, xi1, yi1], fils : [] };
                             noeud.fils.push(nvNoeud);
-                            if(noeud==arbre) {
-                                console.log(noeud.fils);
+
+
+                            if(profondeur>1) {
+                                for(i2=a; i2<b; i2++) { 
+                                    // Pour toutes les pièces alliées pouvant bouger
+                                    if(!dataTmpK1[i2].capture) { 
+                                        const t2 = dataTmpK1[i2].type,
+                                              c2 = dataTmpK1[i2].couleur,
+                                              x2 = dataTmpK1[i2].x,
+                                              y2 = dataTmpK1[i2].y;
+                                        const fct2=mvtFonc[mouvementsPiece[t2]];
+                                        const [mvt2, s] = fct2(x2, y2, c2);
+                            
+                                        for(j2=0; j2<mvt2.length; j2++) { 
+                                            // Pour chaque mouvement de pièce alliée
+                                            const xi2 = parseInt(mvt[j2][0]),
+                                                  yi2 = parseInt(mvt[j2][1]);
+                                            var dataTmp2 = dataTmpK1;
+                                            collision(dataTmp2, xi2, yi2);
+                                            dataTmp2[i2].x=xi2;
+                                            dataTmp2[i2].y=yi2;
+                                            
+                                            for(k2=newA; k2<newB; k2++) { 
+                                                // Pour toutes les pièces ennemies pouvant bouger
+                                                if(!dataTmp2[k2].capture) {
+                                                    const tk2 = data[k2].type,
+                                                          ck2 = data[k2].couleur,
+                                                          xk2 = data[k2].x,
+                                                          yk2 = data[k2].y;
+                                                    const fctk2 = mvtFonc[mouvementsPiece[tk2]];
+                                                    const [mvtk2, sk] = fctk2(xk2, yk2, ck2);
+                            
+                                                    for(l2=0; l2<mvtk2.length; l2++) { 
+                                                        // Pour chauqe mouvement de pièce ennemie
+                                                        var dataTmpK2 = dataTmp2;
+                                                        collision(dataTmpK2, parseInt(mvtk2[l2][0]), parseInt(mvtk2[l2][1]));
+                                                        dataTmpK2[k2].x=parseInt(mvtk[l2][0]);
+                                                        dataTmpK2[k2].y=parseInt(mvtk[l2][1]);
+                            
+                                                        const nvNoeud2 = { actuel : [dataTmpK2, 0, i2, xi2, yi2], fils : [] };
+                                                        nvNoeud.fils.push(nvNoeud2);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            genere(nvNoeud, couleur, profondeur+1, limite);
-                            if (l==4) {return};
+
+                            console.log(noeud);
                         }
                     }
                 }
@@ -197,13 +240,12 @@ function tour(data) {
         tab = data; 
         arbre.actuel = [tab, 0, -1, -1, -1];
         arbre.fils = [];
-        genere(arbre, 'n', 0, 2);
-
+        genere(arbre, 'n', 2);
     }
     else { 
         // lors des autres tours
         for(i=0; i<arbre.fils.length; i++) {
-            genere(tab.fils[i], 'n', 1, 2);
+            genere(tab.fils[i], 'n', 1);
         }
     }
     var min_fils = [];

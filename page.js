@@ -7,7 +7,8 @@ function afficher(i, j, data) {
     return " "; 
 }
 function load(adress) {
-    if(adress.type=="load") { // Pour le premier tour
+    if(adress.type=="load") { 
+        // Pour le premier tour
         localStorage.clear();
         fetch("https://dovalek.github.io/TIPE/positions.json")
         .then(response => response.json())
@@ -28,6 +29,7 @@ function load(adress) {
         });
     }
     else {
+        // Pour les tours suivants
         var data = localStorage.getItem('data');
         var table = document.getElementById('table');
         data=JSON.parse(data)
@@ -68,28 +70,34 @@ function Pourquoi_In_NeMarchePas(x, l) {
 }
 function f(e) { // id = coord, innerhtml = type
     if (Pourquoi_In_NeMarchePas(`${e.target.getAttribute('id')}`, tabMvt[1])) {
+        // Permet de faire jouer le bot
         const abs = parseInt(e.target.getAttribute('id')[0]),
               ord = parseInt(e.target.getAttribute('id')[1]);
-        if(localStorage.length==0) { // Pour le premier tour
+        if(localStorage.length==0) { 
+            // Pour le premier tour
             fetch('https://dovalek.github.io/TIPE/positions.json')
             .then(response => response.json())
             .then(data => {
                 for(i=16; i<data.length; i++) {
                     const [id, coord] = tabMvt[0];
                     if((data[i].x==coord[0])&&(data[i].y==coord[1])&&(data[i].type==id[0])) {
+                        // Pour jouer contre le bot
                         data[i].x = abs;
                         data[i].y = ord;
                         tabMvt=[[], []];
-                        const mvtBot = tour(data);
-                        let piece_bot = mvtBot[0];
-                        if(piece_bot.actuel[3]!=abs && piece_bot.actuel[4]!=ord) {
-                            
-                        }    
-                        else {
-                            piece_bot = mvtBot[1];
-                        }  
-                        data[piece_bot.actuel[2]].x = piece_bot.actuel[3];
-                        data[piece_bot.actuel[2]].x = piece_bot.actuel[4];
+                        const [tabN, tabB] = tour(data);
+                        // Pour jouer contre le bot
+                        let ind = 0;
+                        // Vérifie l'absence de collision entre les pièces qui bougent
+                        while(tabN[ind][4]==abs && tabN[ind][5]==ord) {
+                            ind++;
+                        }
+                        let a = tabN[ind];
+                        //console.log(a.actuel, a);
+                        data[a.actuel[3]].x = a.actuel[4];
+                        data[a.actuel[3]].y = a.actuel[5];
+                        // Pour un jeu bot contre bot
+
                         const modifiedJson = JSON.stringify(data);
                         localStorage.setItem('data', modifiedJson);
 
@@ -103,6 +111,7 @@ function f(e) { // id = coord, innerhtml = type
             });    
         }
         else {
+            // Pour les tours suivants
             var data = localStorage.getItem('data');
             data=JSON.parse(data)
             for(i=16; i<data.length; i++) {
@@ -110,18 +119,16 @@ function f(e) { // id = coord, innerhtml = type
                 if((data[i].x==coord[0])&&(data[i].y==coord[1])&&(data[i].type==id[0])) {
                     data[i].x = abs;
                     data[i].y = ord;
-                    localStorage.setItem('data', JSON.stringify(data));
                     tabMvt=[[], []];
-                    const mvtBot = tour(data);
-                    let piece_bot = mvtBot[0];
-                    if(piece_bot.actuel[3]!=abs && piece_bot.actuel[4]!=ord) {
-                        
-                    }    
-                    else {
-                        piece_bot = mvtBot[1];
-                    }                
-                    data[piece_bot.actuel[2]].x = piece_bot.actuel[3];
-                    data[piece_bot.actuel[2]].x = piece_bot.actuel[4];
+                    const [tabN, tabB] = tour(data);
+                    // Pour jouer contre le bot
+                    let ind = 0;
+                    // Vérifie l'absence de collision entre les pièces qui bougent
+                    while(tabN[ind][4]==abs && tabN[ind][5]==ord) {
+                        ind++;
+                    }
+                    data[tabN[ind][3]].x = tabN[ind][4];
+                    data[tabN[ind][3]].y = tabN[ind][5];
                     const modifiedJson = JSON.stringify(data);
                     localStorage.setItem('data', modifiedJson);
                     load(localStorage);
@@ -130,6 +137,7 @@ function f(e) { // id = coord, innerhtml = type
             }
         }
     }
+    // Permet d'afficher les mouvements possibles pour la pièce sélectionnée
     else if ( (e.target.getAttribute('id')!=null) && (e.target.innerHTML!==" ") )  {
         const t=e.target.innerHTML[0], 
               c=e.target.innerHTML[1];

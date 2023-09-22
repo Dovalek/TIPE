@@ -68,6 +68,7 @@ function score(data, couleur) {
 function genere(noeud, couleur, profondeur){
     const data=noeud.actuel[0];
     let a=0, b=16;
+    var listefils = [];
     if(couleur=='b') {
         a=16;
         b=32;
@@ -84,8 +85,8 @@ function genere(noeud, couleur, profondeur){
 
             for(j1=0; j1<mvt1.length; j1++) { 
                 // Pour chaque mouvement de pièce alliée
-                const xi1 = parseInt(mvt[j1][0]),
-                      yi1 = parseInt(mvt[j1][1]);
+                const xi1 = parseInt(mvt1[j1][0]),
+                      yi1 = parseInt(mvt1[j1][1]);
                 var dataTmp1 = data;
                 collision(dataTmp1, xi1, yi1);
                 dataTmp1[i1].x=xi1;
@@ -110,13 +111,11 @@ function genere(noeud, couleur, profondeur){
                             // Pour chauqe mouvement de pièce ennemie
                             var dataTmpK1 = dataTmp1;
                             collision(dataTmpK1, parseInt(mvtk1[l1][0]), parseInt(mvtk1[l1][1]));
-                            dataTmpK1[k1].x=parseInt(mvtk[l1][0]);
-                            dataTmpK1[k1].y=parseInt(mvtk[l1][1]);
+                            dataTmpK1[k1].x=parseInt(mvtk1[l1][0]);
+                            dataTmpK1[k1].y=parseInt(mvtk1[l1][1]);
+                            listefils = [];
 
-                            const nvNoeud = { actuel : [dataTmpK1, 0, i1, xi1, yi1], fils : [] };
-                            noeud.fils.push(nvNoeud);
-
-
+                            /*
                             if(profondeur>1) {
                                 for(i2=a; i2<b; i2++) { 
                                     // Pour toutes les pièces alliées pouvant bouger
@@ -127,11 +126,11 @@ function genere(noeud, couleur, profondeur){
                                               y2 = dataTmpK1[i2].y;
                                         const fct2=mvtFonc[mouvementsPiece[t2]];
                                         const [mvt2, s] = fct2(x2, y2, c2);
-                            
+
                                         for(j2=0; j2<mvt2.length; j2++) { 
                                             // Pour chaque mouvement de pièce alliée
-                                            const xi2 = parseInt(mvt[j2][0]),
-                                                  yi2 = parseInt(mvt[j2][1]);
+                                            const xi2 = parseInt(mvt2[j2][0]),
+                                                  yi2 = parseInt(mvt2[j2][1]);
                                             var dataTmp2 = dataTmpK1;
                                             collision(dataTmp2, xi2, yi2);
                                             dataTmp2[i2].x=xi2;
@@ -151,20 +150,21 @@ function genere(noeud, couleur, profondeur){
                                                         // Pour chauqe mouvement de pièce ennemie
                                                         var dataTmpK2 = dataTmp2;
                                                         collision(dataTmpK2, parseInt(mvtk2[l2][0]), parseInt(mvtk2[l2][1]));
-                                                        dataTmpK2[k2].x=parseInt(mvtk[l2][0]);
-                                                        dataTmpK2[k2].y=parseInt(mvtk[l2][1]);
+                                                        dataTmpK2[k2].x=parseInt(mvtk2[l2][0]);
+                                                        dataTmpK2[k2].y=parseInt(mvtk2[l2][1]);
                             
                                                         const nvNoeud2 = { actuel : [dataTmpK2, 0, i2, xi2, yi2], fils : [] };
-                                                        nvNoeud.fils.push(nvNoeud2);
+                                                        listefils.push(nvNoeud2);
                                                     }
                                                 }
                                             }
                                         }
                                     }
                                 }
-                            }
-
-                            console.log(noeud);
+                            }*/
+                            const arr = [dataTmpK1, 0, i1, xi1, yi1];
+                            const nvNoeud = { actuel : arr, fils : listefils };
+                            noeud.fils.push(nvNoeud);
                         }
                     }
                 }
@@ -176,7 +176,6 @@ function genere(noeud, couleur, profondeur){
 function inferieur(a, b) {
     return a.actuel[1]-b.actuel[1]<0
 }
-
 function triScore(arr, score) {
     const n = arr.length;
     const tempArray = Array(n).fill(0); // Temporary array for merging
@@ -231,7 +230,11 @@ function fusion(arr, tempArray, leftStart, mid, rightEnd) {
     }
 }
 
-
+// Retourne la liste des situations possibles triée par ordre croissant du score
+/**
+ * @param {array} data 
+ * @returns array
+ */
 function tour(data) {
     var tab = localStorage.getItem('data');
     if(tab==null) { // lors du premier tour
@@ -248,16 +251,31 @@ function tour(data) {
             genere(tab.fils[i], 'n', 1);
         }
     }
-    var min_fils = [];
+    var minN_fils = [];
+    var minB_fils = [];
     for(i=0; i<arbre.fils.length; i++) {
-        let min = vide;
+        // On considère que le score n côté noir est vu -n côté blanc
+        // Ainsi le min blanc est le max noir.
+        /*
+        let minN = vide;
+        let minB = vide;
         for(j=0; j<arbre.fils[i].length; j++) {
-            if( inferieur(arbre.fils[i][j], min) ) {
-                min=arbre.fils[i][j];
+            if( inferieur(arbre.fils[i][j], minN) ) {
+                minN=arbre.fils[i][j];
+            }
+            if( inferieur(minB, arbre.fils[i][j]) ) {
+                minB=arbre.fils[i][j];
             }
         }
-        min_fils.push(min);
-        triScore(min_fils, 1);
+        */
+       /*
+        minN_fils.push(minN);
+        minB_fils.push(minB);
+        triScore(minN_fils, 1);
+        triScore(minB_fils, -1);
+        */
     }
-    return min_fils;
+    minN_fils = arbre.fils;
+    triScore(minN_fils);
+    return [minN_fils, minB_fils];
 }
